@@ -52,3 +52,16 @@ reset_active_nodes <- function(tree) {
 add_root_to_active_nodes <- function(tree) {
   tree$active_nodes <- c(tree$root, tree$active_nodes)
 }
+
+#' Last location
+#'
+#' Get the last stored location in the tree.
+#' This is typically 0 (if no sequences have yet been stored in the tree)
+#' or alternatively the last location in the last sequence entered into
+#' the tree.
+#' @param tree Suffix tree, as produced by \code{new_tree()}.
+#' @export
+last_location <- function(tree) {
+  stopifnot(is(tree, "tree"))
+  tree$when
+}
