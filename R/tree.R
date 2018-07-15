@@ -45,6 +45,12 @@ get_active_nodes <- function(tree) {
   tree$active_nodes
 }
 
+#' Reset active nodes
+#'
+#' Resets the active nodes in a suffix tree.
+#' This is typically used in preparation for modeling a new sequence.
+#' @param tree Suffix tree, as produced by \code{new_tree()}.
+#' @export
 reset_active_nodes <- function(tree) {
   tree$active_nodes <- list(tree$root)
 }
