@@ -20,6 +20,7 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
   x$root <- new_node(as.integer(NA), -Inf)
   x$order_bound <- order_bound
   x$active_nodes <- list() # ordered from smallest context to greatest context
+  x$active_order <- 0L
   x$when <- 0L
   x$terminal <- "$"
   class(x) <- "tree"
@@ -29,8 +30,13 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
 
 #' @export
 print.tree <- function(x, ...) {
-  cat("A suffix tree with", length(as.list(x$root$children)),
-      "observed symbols (including terminals)\n")
+  order_bound <- if (is.null(x$order_bound)) "none" else x$order_bound
+  cat("A suffix tree with ", length(as.list(x$root$children)),
+      " observed symbols (including terminals)\n",
+      "  - order bound = ", order_bound, "\n",
+      "  - active order = ", x$active_order, "\n",
+      "  - last symbol location = ", x$when, "\n",
+      sep = "")
 }
 
 get_root <- function(tree) {
