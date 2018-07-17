@@ -10,7 +10,7 @@ when_continuation <- function(tree, order, continuation) {
   child <- if (id <= length(tree$active_nodes)) {
     tree$active_nodes[[id]]$children[[as.character(continuation)]]
   }
-  unlist(child$log)
+  unlist(child$log_0)
 }
 
 #' Find timepoints where the terminal symbol was observed after the same
@@ -32,7 +32,7 @@ when_continuations <- function(tree, order) {
   children <- if (id <= length(tree$active_nodes)) {
     as.list(tree$active_nodes[[id]]$children)
   }
-  sapply(children, function(x) unlist(x$log), simplify = FALSE)
+  sapply(children, function(x) unlist(x$log_0), simplify = FALSE)
 }
 
 #' Find timepoints when the current context were seen in the dataset,
@@ -42,5 +42,5 @@ when_continuations <- function(tree, order) {
 #' @export
 when_context <- function(tree, order) {
   id <- order + 1L
-  unlist(tree$active_nodes[[id]]$log)
+  unlist(tree$active_nodes[[id]]$log_0)
 }

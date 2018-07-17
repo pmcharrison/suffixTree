@@ -26,12 +26,12 @@ format_graph_spec <- function(spec) {
     edges <- NULL
   } else {
     edges <- lapply(edges, function(x) {
-      x$log <- paste0("[", paste(x$log, collapse = ", "), "]")
+      x$log_0 <- paste0("[", paste(x$log_0, collapse = ", "), "]")
       as.data.frame(x, stringsAsFactors = FALSE)
     })
     edges <- do.call(rbind, edges)
     edges <- DiagrammeR::create_edge_df(from = edges$parent, to = edges$child,
-                                        label = edges$log,
+                                        label = edges$log_0,
                                         rel = "related")
   }
   nodes <- do.call(rbind, spec$nodes)
@@ -51,7 +51,7 @@ add_children_to_graph_spec <- function(spec, node, node_id, tree) {
                                               stringsAsFactors = FALSE)
     spec$edges[[length(spec$edges) + 1L]] <- list(parent = node_id,
                                                   child = child_node_id,
-                                                  log = child$log)
+                                                  log_0 = child$log_0)
     add_children_to_graph_spec(spec = spec, node = child, node_id = child_node_id,
                                tree = tree)
   }

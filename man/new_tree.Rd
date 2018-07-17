@@ -4,7 +4,8 @@
 \alias{new_tree}
 \title{Create new suffix tree}
 \usage{
-new_tree(order_bound = NULL, terminal = "$")
+new_tree(order_bound = NULL, terminal = "$",
+  track_update_excluded_counts = TRUE)
 }
 \arguments{
 \item{order_bound}{Order bound for the suffix tree, i.e.
@@ -12,6 +13,8 @@ the largest n-gram that can be stored.}
 
 \item{terminal}{Reserved terminal symbol; this character must not appear
 in subsequently modeled input text.}
+
+\item{track_update_excluded_counts}{Whether or not to track update-excluded counts.}
 }
 \value{
 The new suffix tree.
