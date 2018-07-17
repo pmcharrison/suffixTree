@@ -51,6 +51,20 @@ get_active_nodes <- function(tree) {
   tree$active_nodes
 }
 
+#' Get active order
+#'
+#' Gets the active order of a suffix tree.
+#' The active order is defined as the length of the
+#' current conditioning context.
+#' When inserting a new sequence, this will typically equal
+#' the length of the currently inserted portion,
+#' or the tree's order bound (whichever is less).
+#' @export
+#' @param tree Suffix tree, as produced by \code{new_tree()}.
+get_active_order <- function(tree) {
+  tree$active_order
+}
+
 #' Reset active nodes
 #'
 #' Resets the active nodes in a suffix tree.
@@ -59,6 +73,7 @@ get_active_nodes <- function(tree) {
 #' @export
 reset_active_nodes <- function(tree) {
   tree$active_nodes <- list(tree$root)
+  tree$active_order <- 0L
 }
 
 add_root_to_active_nodes <- function(tree) {
