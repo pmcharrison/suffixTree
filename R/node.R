@@ -19,3 +19,11 @@ get_children <- function(x) {
 is_node_active <- function(node, tree) {
   any(sapply(tree$active_nodes, function(x) identical(x, node)))
 }
+
+is_node <- function(x) {
+  is(x, "node")
+}
+
+is_terminal_node <- function(x) {
+  is(x, "node") && is(x, "terminal")
+}
