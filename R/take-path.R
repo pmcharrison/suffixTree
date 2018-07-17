@@ -9,13 +9,15 @@
 #' @param when Ignored if save is FALSE; provides the timepoint that should
 #' be saved into the tree.
 #' @return New node reached by taking this path (NA if no valid node found)
-take_path <- function(node, value, save = FALSE, when = NULL) {
+take_path <- function(node, value, save = FALSE, when = NULL, terminal = FALSE) {
   if (save && is.null(when))
     stop("if <save> is TRUE then <when> cannot be NULL")
   key <- as.character(value)
   stopifnot(!is.na(key), is.scalar(key))
   if (is.null(node$children[[key]])) {
-    if (save) node$children[[key]] <- new_node(value, when) else EMPTY_NODE
+    if (save) {
+      node$children[[key]] <- new_node(value, when, terminal = terminal)
+    } else EMPTY_NODE
   } else {
     child <- node$children[[key]]
     if (save) child$log[[length(child$log) + 1L]] <- when

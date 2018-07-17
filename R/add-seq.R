@@ -63,6 +63,7 @@ add_seq <- function(tree, seq, save = TRUE, when = NULL,
   # Terminal ####
   if (save && terminate) add_symbol(tree, value = tree$terminal,
                                     save = TRUE,
-                                    when = when[i])
+                                    when = when[i],
+                                    terminal = TRUE)
   tree
 }
