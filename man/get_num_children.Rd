@@ -4,7 +4,7 @@
 \alias{get_num_children}
 \title{Get number of children}
 \usage{
-get_num_children(tree, order)
+get_num_children(tree, order, exclude_terminals = FALSE)
 }
 \arguments{
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
@@ -13,8 +13,9 @@ get_num_children(tree, order)
 }
 \value{
 The number of children of the active node with order as specified,
-including terminal symbols.
+possibly including terminal symbols.
 }
 \description{
-Returns the number of children of a given active node, including terminals.
+Returns the number of children of a given active node,
+excluding terminals if requested.
 }
