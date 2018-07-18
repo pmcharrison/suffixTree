@@ -5,7 +5,7 @@
 \title{Find timepoints that a given continuation was observed in the tree
 from the current active node with a given order}
 \usage{
-when_continuation(tree, order, continuation)
+when_continuation(tree, order, continuation, update_excluded = FALSE)
 }
 \arguments{
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
@@ -13,6 +13,8 @@ when_continuation(tree, order, continuation)
 \item{order}{Amount of context (e.g. 0 means no context)}
 
 \item{continuation}{Continuation of interest (should be a scalar).}
+
+\item{update_excluded}{Boolean; whether to return update-excluded results.}
 }
 \value{
 \code{NULL} if no continuations found

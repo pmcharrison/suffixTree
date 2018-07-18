@@ -4,12 +4,14 @@
 \alias{when_continuations}
 \title{Tabulate all continuations from the current active node with a given order}
 \usage{
-when_continuations(tree, order)
+when_continuations(tree, order, update_excluded = FALSE)
 }
 \arguments{
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
 
 \item{order}{Amount of context to consider (e.g. 0 means no context).}
+
+\item{update_excluded}{Boolean; whether to return update-excluded results.}
 }
 \description{
 Tabulate all continuations from the current active node with a given order

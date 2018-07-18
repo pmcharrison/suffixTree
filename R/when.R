@@ -3,44 +3,53 @@
 #' @param tree A suffix tree as produced by \code{new_tree}.
 #' @param order Amount of context (e.g. 0 means no context)
 #' @param continuation Continuation of interest (should be a scalar).
+#' @param update_excluded Boolean; whether to return update-excluded results.
 #' @return \code{NULL} if no continuations found
 #' @export
-when_continuation <- function(tree, order, continuation) {
+when_continuation <- function(tree, order, continuation,
+                              update_excluded = FALSE) {
   id <- order + 1L
   child <- if (id <= length(tree$active_nodes)) {
     tree$active_nodes[[id]]$children[[as.character(continuation)]]
   }
-  unlist(child$log_0)
+  field <- if (update_excluded) "log_1" else "log_0"
+  unlist(child[[field]])
 }
 
 #' Find timepoints where the terminal symbol was observed after the same
 #' context had just been entered into the tree.
 #' @param tree A suffix tree as produced by \code{new_tree}.
 #' @param order Amount of context to consider (e.g. 0 means no context).
+#' @param update_excluded Boolean; whether to return update-excluded results.
 #' @return \code{NULL} if no continuations found
 #' @export
-when_continuation_terminal <- function(tree, order) {
-  when_continuation(tree = tree, order = order, continuation = tree$terminal)
+when_continuation_terminal <- function(tree, order, update_excluded = FALSE) {
+  when_continuation(tree = tree, order = order, continuation = tree$terminal,
+                    update_excluded = update_excluded)
 }
 
 #' Tabulate all continuations from the current active node with a given order
 #' @param tree A suffix tree as produced by \code{new_tree}.
 #' @param order Amount of context to consider (e.g. 0 means no context).
+#' @param update_excluded Boolean; whether to return update-excluded results.
 #' @export
-when_continuations <- function(tree, order) {
+when_continuations <- function(tree, order, update_excluded = FALSE) {
   id <- order + 1L
   children <- if (id <= length(tree$active_nodes)) {
     as.list(tree$active_nodes[[id]]$children)
   }
-  sapply(children, function(x) unlist(x$log_0), simplify = FALSE)
+  field <- if (update_excluded) "log_1" else "log_0"
+  sapply(children, function(x) unlist(x[[field]]), simplify = FALSE)
 }
 
 #' Find timepoints when the current context were seen in the dataset,
 #' where the current context is defined by the tree's active nodes.
 #' @param tree A suffix tree as produced by \code{new_tree}.
 #' @param order Amount of context (e.g. 0 means no context).
+#' @param update_excluded Boolean; whether to return update-excluded results.
 #' @export
-when_context <- function(tree, order) {
+when_context <- function(tree, order, update_excluded = FALSE) {
   id <- order + 1L
-  unlist(tree$active_nodes[[id]]$log_0)
+  field <- if (update_excluded) "log_1" else "log_0"
+  unlist(tree$active_nodes[[id]][[field]])
 }

@@ -5,12 +5,14 @@
 \title{Find timepoints when the current context were seen in the dataset,
 where the current context is defined by the tree's active nodes.}
 \usage{
-when_context(tree, order)
+when_context(tree, order, update_excluded = FALSE)
 }
 \arguments{
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
 
 \item{order}{Amount of context (e.g. 0 means no context).}
+
+\item{update_excluded}{Boolean; whether to return update-excluded results.}
 }
 \description{
 Find timepoints when the current context were seen in the dataset,
