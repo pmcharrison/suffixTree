@@ -33,11 +33,13 @@ when_continuation_terminal <- function(tree, order, update_excluded = FALSE) {
 #' @param order Amount of context to consider (e.g. 0 means no context).
 #' @param update_excluded Boolean; whether to return update-excluded results.
 #' @export
-when_continuations <- function(tree, order, update_excluded = FALSE) {
+when_continuations <- function(tree, order, update_excluded = FALSE,
+                               include_terminal = TRUE) {
   id <- order + 1L
   children <- if (id <= length(tree$active_nodes)) {
     as.list(tree$active_nodes[[id]]$children)
   }
+  if (!include_terminal) children <- Filter(Negate(is_terminal_node), children)
   field <- if (update_excluded) "log_1" else "log_0"
   sapply(children, function(x) unlist(x[[field]]), simplify = FALSE)
 }
