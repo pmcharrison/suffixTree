@@ -4,8 +4,8 @@
 \alias{add_seq}
 \title{Add sequence to suffix tree}
 \usage{
-add_seq(tree, seq, save = TRUE, when = NULL, reset_active_nodes = TRUE,
-  terminate = TRUE, visual = FALSE)
+add_seq(tree, seq, save = TRUE, when = NULL,
+  reset_active_nodes = TRUE, terminate = TRUE, visual = FALSE)
 }
 \arguments{
 \item{tree}{Suffix tree as produced by \code{new_tree}.}
