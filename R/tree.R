@@ -7,6 +7,7 @@
 #' in subsequently modeled input text.
 #' @return The new suffix tree.
 #' @export
+#' Note: it would be more elegant to implement this as an R6 class
 new_tree <- function(order_bound = NULL, terminal = "$") {
   # Inputs ####
   if (!is.null(order_bound) && (!is.integerlike(order_bound) || order_bound < 1))
@@ -29,6 +30,11 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
 }
 
 #' @export
+is.tree <- function(x) {
+  is(x, "tree")
+}
+
+#' @export
 print.tree <- function(x, ...) {
   order_bound <- if (is.null(x$order_bound)) "none" else x$order_bound
   cat("A suffix tree with ", length(as.list(x$root$children)),
@@ -40,14 +46,17 @@ print.tree <- function(x, ...) {
 }
 
 get_root <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$root
 }
 
 get_order_bound <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$order_bound
 }
 
 get_active_nodes <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$active_nodes
 }
 
@@ -62,6 +71,7 @@ get_active_nodes <- function(tree) {
 #' @export
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 get_active_order <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$active_order
 }
 
@@ -72,11 +82,13 @@ get_active_order <- function(tree) {
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
 reset_active_nodes <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$active_nodes <- list(tree$root)
   tree$active_order <- 0L
 }
 
 add_root_to_active_nodes <- function(tree) {
+  stopifnot(is.tree(tree))
   tree$active_nodes <- c(tree$root, tree$active_nodes)
 }
 
@@ -89,6 +101,6 @@ add_root_to_active_nodes <- function(tree) {
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
 last_location <- function(tree) {
-  stopifnot(is(tree, "tree"))
+  stopifnot(is.tree(tree))
   tree$when
 }
