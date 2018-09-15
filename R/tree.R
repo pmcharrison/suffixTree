@@ -7,7 +7,6 @@
 #' in subsequently modeled input text.
 #' @return The new suffix tree.
 #' @export
-#' Note: it would be more elegant to implement this as an R6 class
 new_tree <- function(order_bound = NULL, terminal = "$") {
   # Inputs ####
   if (!is.null(order_bound) && (!is.integerlike(order_bound) || order_bound < 1))
