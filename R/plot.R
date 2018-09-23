@@ -1,6 +1,7 @@
 #' @export
-plot.tree <- function(x, wait = FALSE, print = FALSE, shiny = FALSE, ...) {
-  spec <- get_graph_spec(x)
+plot.tree <- function(x, wait = FALSE, print = FALSE, shiny = FALSE,
+                      update_excluded = FALSE, ...) {
+  spec <- get_graph_spec(x, update_excluded = update_excluded)
   g <- DiagrammeR::create_graph(nodes_df = spec$nodes,
                                 edges_df = spec$edges)
   res <- if (shiny) g else DiagrammeR::render_graph(g)
@@ -9,13 +10,14 @@ plot.tree <- function(x, wait = FALSE, print = FALSE, shiny = FALSE, ...) {
   res
 }
 
-get_graph_spec <- function(tree) {
+get_graph_spec <- function(tree, update_excluded) {
   spec <- new.env()
   spec$nodes <- list(data.frame(value = "ROOT", active = is_node_active(tree$root, tree),
                                 stringsAsFactors = FALSE))
   spec$edges <- list()
   add_children_to_graph_spec(spec, node = get_root(tree),
-                             node_id = 1L, tree = tree)
+                             node_id = 1L, tree = tree,
+                             update_excluded = update_excluded)
   out <- format_graph_spec(spec)
   out
 }
@@ -26,12 +28,12 @@ format_graph_spec <- function(spec) {
     edges <- NULL
   } else {
     edges <- lapply(edges, function(x) {
-      x$log_0 <- paste0("[", paste(x$log_0, collapse = ", "), "]")
+      x$count <- paste0("[", paste(x$count, collapse = ", "), "]")
       as.data.frame(x, stringsAsFactors = FALSE)
     })
     edges <- do.call(rbind, edges)
     edges <- DiagrammeR::create_edge_df(from = edges$parent, to = edges$child,
-                                        label = edges$log_0,
+                                        label = edges$count,
                                         rel = "related")
   }
   nodes <- do.call(rbind, spec$nodes)
@@ -42,17 +44,19 @@ format_graph_spec <- function(spec) {
   list(nodes = nodes, edges = edges)
 }
 
-add_children_to_graph_spec <- function(spec, node, node_id, tree) {
+add_children_to_graph_spec <- function(spec, node, node_id, tree, update_excluded) {
   children <- as.list(get_children(node))
   for (child in children) {
     child_node_id <- length(spec$nodes) + 1L
     spec$nodes[[child_node_id]] <- data.frame(value = get_value(child),
                                               active = is_node_active(child, tree),
                                               stringsAsFactors = FALSE)
-    spec$edges[[length(spec$edges) + 1L]] <- list(parent = node_id,
-                                                  child = child_node_id,
-                                                  log_0 = child$log_0)
+    spec$edges[[length(spec$edges) + 1L]] <- list(
+      parent = node_id,
+      child = child_node_id,
+      count = child[[if (update_excluded) "log_1" else "log_0"]]
+    )
     add_children_to_graph_spec(spec = spec, node = child, node_id = child_node_id,
-                               tree = tree)
+                               tree = tree, update_excluded = update_excluded)
   }
 }
