@@ -6,15 +6,13 @@ Description: Timestamped suffix trees (TSTs) are suffix trees that store timesta
 Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Imports:
-  DiagrammeR (>= 1.0.0),
-  DiagrammeRsvg (>= 0.1),
-  methods,
-  rsvg (>= 1.3),
-  shiny (>= 1.1.0)
+  methods
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 Suggests: 
+    DiagrammeR (>= 1.0.0),
+    shiny (>= 1.1.0),
     testthat (>= 2.0.0),
     covr (>= 3.2.0)
 RoxygenNote: 6.1.0

@@ -1,6 +1,10 @@
 #' @export
 plot.tree <- function(x, wait = FALSE, print = FALSE, shiny = FALSE,
                       update_excluded = FALSE, ...) {
+  if (!requireNamespace("DiagrammeR", quietly = TRUE)) {
+    stop("Package \"DiagrammeR\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   spec <- get_graph_spec(x, update_excluded = update_excluded)
   g <- DiagrammeR::create_graph(nodes_df = spec$nodes,
                                 edges_df = spec$edges)

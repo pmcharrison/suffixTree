@@ -1,5 +1,3 @@
-# The beginnings of a Shiny demo app
-
 sanitise_input <- function(x) {
   x <- gsub("[^A-Za-z0-9 ]", "", x)
   strsplit(x, " ")[[1]]
@@ -13,6 +11,11 @@ sanitise_input <- function(x) {
 #' @param order_bound Order bound of the suffix tree.
 #' @export
 demo_suffix_tree <- function(max_seq_length = 20, order_bound = 10) {
+  if (!requireNamespace("shiny", quietly = TRUE)) {
+    stop("Package \"shiny\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
   ui <- shiny::fluidPage(
     # title = "tst demo",
     shiny::titlePanel("tst demo"),
