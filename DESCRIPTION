@@ -15,6 +15,6 @@ Encoding: UTF-8
 LazyData: true
 ByteCompile: true
 Suggests: 
-    testthat,
-    covr
+    testthat (>= 2.0.0),
+    covr (>= 3.2.0)
 RoxygenNote: 6.1.0
