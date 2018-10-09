@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-tst v0.1.0
+tst v0.1.1
 ==========
 
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/pmcharrison/tst?branch=master&svg=true)](https://ci.appveyor.com/project/pmcharrison/tst) [![Travis build status](https://travis-ci.org/pmcharrison/tst.svg?branch=master)](https://travis-ci.org/pmcharrison/tst) [![Coverage status](https://coveralls.io/repos/github/pmcharrison/tst/badge.svg)](https://coveralls.io/r/pmcharrison/tst?branch=master)
