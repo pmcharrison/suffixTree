@@ -1,4 +1,4 @@
 library(testthat)
-library(suffixTree)
+library(tst)
 
-test_check("suffixTree")
+test_check("tst")

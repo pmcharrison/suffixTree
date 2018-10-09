@@ -8,14 +8,14 @@ sanitise_input <- function(x) {
 
 #' Run Shiny demo
 #'
-#' Runs a Shiny demo for the suffixTree package.
+#' Runs a Shiny demo for the tst package.
 #' @param max_seq_length Maximum length of sequence that can be added each time.
 #' @param order_bound Order bound of the suffix tree.
 #' @export
 demo_suffix_tree <- function(max_seq_length = 20, order_bound = 10) {
   ui <- shiny::fluidPage(
-    # title = "Suffix tree demo",
-    shiny::titlePanel("suffixTree demo"),
+    # title = "tst demo",
+    shiny::titlePanel("tst demo"),
     shiny::sidebarLayout(
       shiny::sidebarPanel(
         shiny::textAreaInput(

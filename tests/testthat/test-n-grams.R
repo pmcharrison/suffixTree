@@ -37,3 +37,4 @@ test_that("compare to a naive n-gram counter", {
     count_ngram(tree, c("my", "cat"))
   )
 })
+

@@ -5,12 +5,14 @@
 \title{Find timepoints where the terminal symbol was observed after the same
 context had just been entered into the tree.}
 \usage{
-when_continuation_terminal(tree, order)
+when_continuation_terminal(tree, order, update_excluded = FALSE)
 }
 \arguments{
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
 
 \item{order}{Amount of context to consider (e.g. 0 means no context).}
+
+\item{update_excluded}{Boolean; whether to return update-excluded results.}
 }
 \value{
 \code{NULL} if no continuations found
