@@ -2,12 +2,7 @@ Package: tst
 Title: Timestamped Suffix Trees (TSTs)
 Version: 0.0.1
 Authors@R: person("Peter", "Harrison", email = "pmc.harrison@gmail.com", role = c("aut", "cre"))
-Description: Timestamped suffix trees (TSTs) are suffix trees that store
-timestamps for each state transition in the training sequence(s).
-Given a sequence of consecutive symbols, the TST can efficiently return 
-the timepoints when this sequence occurred in the training data, 
-the symbols that followed this sequence in the training data,
-and the timepoints when these continuation symbols were observed.
+Description: Timestamped suffix trees (TSTs) are suffix trees that store timestamps for each state transition in the training sequence(s). Given a sequence of consecutive symbols, the TST can efficiently return  the timepoints when this sequence occurred in the training data,  the symbols that followed this sequence in the training data, and the timepoints when these continuation symbols were observed.
 Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Imports:
@@ -19,5 +14,7 @@ Imports:
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Suggests: testthat
+Suggests: 
+    testthat,
+    covr
 RoxygenNote: 6.1.0
