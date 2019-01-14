@@ -5,7 +5,7 @@
 #' - Start at the highest-order context.
 #' - If the symbol is novel, increment count, move to the next-lowest-order node, and repeat.
 #' - If the symbol is not novel, increment count and stop.
-add_symbol <- function(tree, value, save, when, terminal = FALSE) {
+add_symbol <- function(tree, value, save, time, terminal = FALSE) {
   stopifnot(length(tree$active_nodes) > 0L)
   tree$active_order <- NA
   exclude_update <- FALSE
@@ -14,14 +14,15 @@ add_symbol <- function(tree, value, save, when, terminal = FALSE) {
     res <- take_path(node = tree$active_nodes[[j]],
                      value = value,
                      save = save,
-                     when = when,
+                     time = time,
+                     pos = tree$num_observed,
                      terminal = terminal,
                      exclude_update = exclude_update)
     if (is.na(tree$active_order) && !is(res, "empty_node")) tree$active_order <- j
     if (!attr(res, "novel_symbol")) exclude_update <- TRUE
     tree$active_nodes[[j]] <- res
   }
-  if (save) tree$when <- when
+  if (save) tree$num_observed <- tree$num_observed + 1L
   trim_active_nodes(tree, save = save)
   add_root_to_active_nodes(tree)
 }

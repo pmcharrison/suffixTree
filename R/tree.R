@@ -17,11 +17,11 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
 
   # Main ####
   x <- new.env()
-  x$root <- new_node(as.integer(NA), -Inf)
+  x$root <- new_node(as.integer(NA), pos = 0L, time = 0)
   x$order_bound <- order_bound
   x$active_nodes <- list() # ordered from smallest context to greatest context
   x$active_order <- 0L
-  x$when <- 0L
+  x$num_observed <- 0L
   x$terminal <- "$"
   class(x) <- "tree"
   reset_active_nodes(x)
@@ -36,11 +36,10 @@ is.tree <- function(x) {
 #' @export
 print.tree <- function(x, ...) {
   order_bound <- if (is.null(x$order_bound)) "none" else x$order_bound
-  cat("A suffix tree with ", length(as.list(x$root$children)),
-      " observed symbols (including terminals)\n",
+  cat("A suffix tree\n",
+      "  - number of stored symbols (inc. terminals) = ", num_observed(x), "\n",
       "  - order bound = ", order_bound, "\n",
       "  - active order = ", x$active_order, "\n",
-      "  - last symbol location = ", x$when, "\n",
       sep = "")
 }
 
@@ -91,15 +90,13 @@ add_root_to_active_nodes <- function(tree) {
   tree$active_nodes <- c(tree$root, tree$active_nodes)
 }
 
-#' Last location
+#' Number of observed symbols
 #'
-#' Get the last stored location in the tree.
-#' This is typically 0 (if no sequences have yet been stored in the tree)
-#' or alternatively the last location in the last sequence entered into
-#' the tree.
+#' Returns the number of symbols that have been entered into the tree,
+#' including repetitions.
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
-last_location <- function(tree) {
+num_observed <- function(tree) {
   stopifnot(is.tree(tree))
-  tree$when
+  tree$num_observed
 }

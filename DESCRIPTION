@@ -6,7 +6,8 @@ Description: Timestamped suffix trees (TSTs) are suffix trees that store timesta
 Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Imports:
-  methods
+    methods,
+    tibble
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true

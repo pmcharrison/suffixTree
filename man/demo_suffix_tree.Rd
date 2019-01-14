@@ -12,5 +12,5 @@ demo_suffix_tree(max_seq_length = 20, order_bound = 10)
 \item{order_bound}{Order bound of the suffix tree.}
 }
 \description{
-Runs a Shiny demo for the suffixTree package.
+Runs a Shiny demo for the tst package.
 }
