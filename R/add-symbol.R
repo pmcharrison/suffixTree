@@ -15,7 +15,7 @@ add_symbol <- function(tree, value, save, time, terminal = FALSE) {
                      value = value,
                      save = save,
                      time = time,
-                     pos = tree$num_observed,
+                     pos = tree$num_observed + 1L,
                      terminal = terminal,
                      exclude_update = exclude_update)
     if (is.na(tree$active_order) && !is(res, "empty_node")) tree$active_order <- j
