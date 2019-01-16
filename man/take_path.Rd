@@ -4,8 +4,8 @@
 \alias{take_path}
 \title{Take path in suffix tree}
 \usage{
-take_path(node, value, save = FALSE, when_time = NULL,
-  when_pos = NULL, terminal = FALSE, exclude_update = FALSE)
+take_path(node, value, save = FALSE, time = NULL, pos = NULL,
+  terminal = FALSE, exclude_update = FALSE)
 }
 \arguments{
 \item{node}{Object of type \code{node}, corresponding to the current node.}

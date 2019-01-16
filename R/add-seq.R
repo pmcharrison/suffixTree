@@ -38,7 +38,7 @@ add_seq <- function(tree,
                     terminate = TRUE,
                     visual = FALSE) {
   # Inputs ####
-  stopifnot(is(tree, "tree"), is.atomic(seq), is.scalar.logical(save),
+  stopifnot(is.tst(tree), is.atomic(seq), is.scalar.logical(save),
             is.null.or(time, is.numeric), is.scalar.logical(reset_active_nodes),
             is.scalar.logical(terminate), is.scalar.logical(visual))
   if (save) {

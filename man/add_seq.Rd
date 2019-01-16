@@ -4,7 +4,7 @@
 \alias{add_seq}
 \title{Add sequence to suffix tree}
 \usage{
-add_seq(tree, seq, save = TRUE, when_time = NULL,
+add_seq(tree, seq, save = TRUE, time = NULL,
   reset_active_nodes = TRUE, terminate = TRUE, visual = FALSE)
 }
 \arguments{

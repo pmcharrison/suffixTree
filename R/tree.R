@@ -23,20 +23,20 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
   x$active_order <- 0L
   x$num_observed <- 0L
   x$terminal <- "$"
-  class(x) <- "tree"
+  class(x) <- "tst"
   reset_active_nodes(x)
   x
 }
 
 #' @export
-is.tree <- function(x) {
-  is(x, "tree")
+is.tst <- function(x) {
+  is(x, "tst")
 }
 
 #' @export
-print.tree <- function(x, ...) {
+print.tst <- function(x, ...) {
   order_bound <- if (is.null(x$order_bound)) "none" else x$order_bound
-  cat("A suffix tree\n",
+  cat("A temporal suffix tree\n",
       "  - number of stored symbols (inc. terminals) = ", num_observed(x), "\n",
       "  - order bound = ", order_bound, "\n",
       "  - active order = ", x$active_order, "\n",
@@ -44,17 +44,17 @@ print.tree <- function(x, ...) {
 }
 
 get_root <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$root
 }
 
 get_order_bound <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$order_bound
 }
 
 get_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes
 }
 
@@ -69,7 +69,7 @@ get_active_nodes <- function(tree) {
 #' @export
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 get_active_order <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_order
 }
 
@@ -80,13 +80,13 @@ get_active_order <- function(tree) {
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
 reset_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes <- list(tree$root)
   tree$active_order <- 0L
 }
 
 add_root_to_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes <- c(tree$root, tree$active_nodes)
 }
 
@@ -97,6 +97,6 @@ add_root_to_active_nodes <- function(tree) {
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
 num_observed <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$num_observed
 }

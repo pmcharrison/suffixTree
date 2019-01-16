@@ -1,5 +1,5 @@
 #' @export
-plot.tree <- function(x, wait = FALSE, print = FALSE, shiny = FALSE,
+plot.tst <- function(x, wait = FALSE, print = FALSE, shiny = FALSE,
                       update_excluded = FALSE, ...) {
   if (!requireNamespace("DiagrammeR", quietly = TRUE)) {
     stop("Package \"DiagrammeR\" needed for this function to work. Please install it.",
