@@ -28,6 +28,12 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
   x
 }
 
+#' Is it a TST?
+#'
+#' Checks whether an object is of class "tst".
+#'
+#' @param x Object to check.
+#'
 #' @export
 is.tst <- function(x) {
   is(x, "tst")

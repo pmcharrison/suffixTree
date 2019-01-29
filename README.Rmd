@@ -28,8 +28,6 @@ the timepoints when this sequence occurred in the training data,
 the symbols that followed this sequence in the training data,
 and the timepoints when these continuation symbols were observed.
 
-For an interactive demo, visit http://shiny.pmcharrison.com/suffix-tree-demo.
-
 ## Installation
 
 ```

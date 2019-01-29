@@ -17,10 +17,8 @@ timestamps for each state transition in the training sequence(s). Given
 a sequence of consecutive symbols, the TST can efficiently return the
 timepoints when this sequence occurred in the training data, the symbols
 that followed this sequence in the training data, and the timepoints
-when these continuation symbols were observed.
-
-For an interactive demo, visit
-<http://shiny.pmcharrison.com/suffix-tree-demo>.
+when these continuation symbols were
+    observed.
 
 ## Installation
 
@@ -35,7 +33,7 @@ library(tst)
 # Build and visualize a simple suffix tree
 t <- new_tree()
 add_seq(t, c("a", "b", "c", "a", "b"))
-#> A suffix tree
+#> A temporal suffix tree
 #>   - number of stored symbols (inc. terminals) = 6
 #>   - order bound = none
 #>   - active order = 6
@@ -54,7 +52,7 @@ add_seq(t, c("a", "b", "c", "a", "b"), visual = TRUE)
 #> Press enter to continue:
 #> Press enter to continue:
 #> Press enter to continue:
-#> A suffix tree
+#> A temporal suffix tree
 #>   - number of stored symbols (inc. terminals) = 6
 #>   - order bound = none
 #>   - active order = 6
@@ -64,8 +62,8 @@ when_ngram(t, c("a", "b"))
 #> # A tibble: 2 x 2
 #>     pos  time
 #>   <int> <dbl>
-#> 1     1     1
-#> 2     4     4
+#> 1     2     1
+#> 2     5     4
 count_ngram(t, c("a", "b"))
 #> [1] 2
 ```

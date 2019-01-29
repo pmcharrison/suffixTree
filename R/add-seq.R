@@ -7,12 +7,13 @@
 #' In the latter case, only the tree's active nodes are updated.
 #' @param tree Suffix tree as produced by \code{new_tree}.
 #' @param seq Sequence to add, should be a numeric or character vector.
+#' @param time Either \code{NULL} or a numeric vector of timepoints
+#' of the same length as \code{seq}, which should be in ascending order.
+#' If \code{NULL}, then defaults to a sequence in steps of 1
+#' beginning from the number of events already in the tree
+#' (so, for an empty tree: 0, 1, 2, 3, ...).
 #' @param save Boolean; whether or not to save the sequence in the tree
 #' (if \code{save = FALSE}, only the active nodes are updated).
-#' @param when Boolean; ignored if \code{save = FALSE}; provides locations
-#' for each element of \code{seq}. If \code{NULL} (default), locations
-#' are determined as a numeric sequence beginning at the last location
-#' entered into the tree, and increasing by 1 each time.
 #' @param reset_active_nodes By default, the tree's active nodes are reset
 #' before adding the new sequence (\code{reset_active_nodes = TRUE}).
 #' Otherwise the new sequence is treated as a continuation of the previous
@@ -44,7 +45,7 @@ add_seq <- function(tree,
   if (save) {
     if (is.null(time)) {
       time <- seq(from = tree$num_observed,
-                       length.out = length(seq))
+                  length.out = length(seq))
     } else stopifnot(identical(length(time), length(seq)))
   }
 

@@ -6,8 +6,14 @@
 #' @param value Name of the (possibly non-existent) target node.
 #' Should be a scalar character.
 #' @param save Whether to save the journey into the tree.
-#' @param when Ignored if save is FALSE; provides the timepoint that should
-#' be saved into the tree.
+#' @param time (Numeric scalar) Ignored if \code{save} is \code{FALSE};
+#' provides the timepoint that should be saved into the tree.
+#' @param pos (Integerish scalar) Ignored if \code{save} is \code{FALSE};
+#' corresponds to the 1-indexed position of the event in the training data
+#' (across all sequences).
+#' @param terminal (Logical scalar) Whether or not the symbol is a terminal symbol.
+#' @param exclude_update (Logical scalar) Whether or not updates should be excluded
+#' for this event.
 #' @return New node reached by taking this path (NA if no valid node found)
 take_path <- function(node, value, save = FALSE,
                       time = NULL,
