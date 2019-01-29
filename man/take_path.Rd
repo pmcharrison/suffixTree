@@ -4,8 +4,8 @@
 \alias{take_path}
 \title{Take path in suffix tree}
 \usage{
-take_path(node, value, save = FALSE, when = NULL, terminal = FALSE,
-  exclude_update = FALSE)
+take_path(node, value, save = FALSE, time = NULL, pos = NULL,
+  terminal = FALSE, exclude_update = FALSE)
 }
 \arguments{
 \item{node}{Object of type \code{node}, corresponding to the current node.}
@@ -15,8 +15,17 @@ Should be a scalar character.}
 
 \item{save}{Whether to save the journey into the tree.}
 
-\item{when}{Ignored if save is FALSE; provides the timepoint that should
-be saved into the tree.}
+\item{time}{(Numeric scalar) Ignored if \code{save} is \code{FALSE};
+provides the timepoint that should be saved into the tree.}
+
+\item{pos}{(Integerish scalar) Ignored if \code{save} is \code{FALSE};
+corresponds to the 1-indexed position of the event in the training data
+(across all sequences).}
+
+\item{terminal}{(Logical scalar) Whether or not the symbol is a terminal symbol.}
+
+\item{exclude_update}{(Logical scalar) Whether or not updates should be excluded
+for this event.}
 }
 \value{
 New node reached by taking this path (NA if no valid node found)

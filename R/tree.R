@@ -17,45 +17,50 @@ new_tree <- function(order_bound = NULL, terminal = "$") {
 
   # Main ####
   x <- new.env()
-  x$root <- new_node(as.integer(NA), -Inf)
+  x$root <- new_node(as.integer(NA), pos = 0L, time = 0)
   x$order_bound <- order_bound
   x$active_nodes <- list() # ordered from smallest context to greatest context
   x$active_order <- 0L
-  x$when <- 0L
+  x$num_observed <- 0L
   x$terminal <- "$"
-  class(x) <- "tree"
+  class(x) <- "tst"
   reset_active_nodes(x)
   x
 }
 
+#' Is it a TST?
+#'
+#' Checks whether an object is of class "tst".
+#'
+#' @param x Object to check.
+#'
 #' @export
-is.tree <- function(x) {
-  is(x, "tree")
+is.tst <- function(x) {
+  is(x, "tst")
 }
 
 #' @export
-print.tree <- function(x, ...) {
+print.tst <- function(x, ...) {
   order_bound <- if (is.null(x$order_bound)) "none" else x$order_bound
-  cat("A suffix tree with ", length(as.list(x$root$children)),
-      " observed symbols (including terminals)\n",
+  cat("A temporal suffix tree\n",
+      "  - number of stored symbols (inc. terminals) = ", num_observed(x), "\n",
       "  - order bound = ", order_bound, "\n",
       "  - active order = ", x$active_order, "\n",
-      "  - last symbol location = ", x$when, "\n",
       sep = "")
 }
 
 get_root <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$root
 }
 
 get_order_bound <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$order_bound
 }
 
 get_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes
 }
 
@@ -70,7 +75,7 @@ get_active_nodes <- function(tree) {
 #' @export
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 get_active_order <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_order
 }
 
@@ -81,25 +86,23 @@ get_active_order <- function(tree) {
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
 reset_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes <- list(tree$root)
   tree$active_order <- 0L
 }
 
 add_root_to_active_nodes <- function(tree) {
-  stopifnot(is.tree(tree))
+  stopifnot(is.tst(tree))
   tree$active_nodes <- c(tree$root, tree$active_nodes)
 }
 
-#' Last location
+#' Number of observed symbols
 #'
-#' Get the last stored location in the tree.
-#' This is typically 0 (if no sequences have yet been stored in the tree)
-#' or alternatively the last location in the last sequence entered into
-#' the tree.
+#' Returns the number of symbols that have been entered into the tree,
+#' including repetitions.
 #' @param tree Suffix tree, as produced by \code{new_tree()}.
 #' @export
-last_location <- function(tree) {
-  stopifnot(is.tree(tree))
-  tree$when
+num_observed <- function(tree) {
+  stopifnot(is.tst(tree))
+  tree$num_observed
 }

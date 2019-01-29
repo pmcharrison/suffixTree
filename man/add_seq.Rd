@@ -4,7 +4,7 @@
 \alias{add_seq}
 \title{Add sequence to suffix tree}
 \usage{
-add_seq(tree, seq, save = TRUE, when = NULL,
+add_seq(tree, seq, save = TRUE, time = NULL,
   reset_active_nodes = TRUE, terminate = TRUE, visual = FALSE)
 }
 \arguments{
@@ -15,10 +15,11 @@ add_seq(tree, seq, save = TRUE, when = NULL,
 \item{save}{Boolean; whether or not to save the sequence in the tree
 (if \code{save = FALSE}, only the active nodes are updated).}
 
-\item{when}{Boolean; ignored if \code{save = FALSE}; provides locations
-for each element of \code{seq}. If \code{NULL} (default), locations
-are determined as a numeric sequence beginning at the last location
-entered into the tree, and increasing by 1 each time.}
+\item{time}{Either \code{NULL} or a numeric vector of timepoints
+of the same length as \code{seq}, which should be in ascending order.
+If \code{NULL}, then defaults to a sequence in steps of 1
+beginning from the number of events already in the tree
+(so, for an empty tree: 0, 1, 2, 3, ...).}
 
 \item{reset_active_nodes}{By default, the tree's active nodes are reset
 before adding the new sequence (\code{reset_active_nodes = TRUE}).

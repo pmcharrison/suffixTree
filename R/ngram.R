@@ -11,7 +11,7 @@ when_ngram <- function(tree, ngram) {
   node <- get_root(tree)
   for (val in ngram)
     node <- take_path(node = node, value = val, save = FALSE)
-  if (is(node, "empty_node")) numeric() else as.numeric(unlist(node$log_0))
+  when_visited(node, update_excluded = FALSE)
 }
 
 #' Count n-gram occurrences
@@ -22,5 +22,5 @@ when_ngram <- function(tree, ngram) {
 #' @return Integer n-gram count.
 #' @export
 count_ngram <- function(tree, ngram) {
-  length(when_ngram(tree, ngram))
+  nrow(when_ngram(tree, ngram))
 }

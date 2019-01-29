@@ -7,12 +7,13 @@
 #' In the latter case, only the tree's active nodes are updated.
 #' @param tree Suffix tree as produced by \code{new_tree}.
 #' @param seq Sequence to add, should be a numeric or character vector.
+#' @param time Either \code{NULL} or a numeric vector of timepoints
+#' of the same length as \code{seq}, which should be in ascending order.
+#' If \code{NULL}, then defaults to a sequence in steps of 1
+#' beginning from the number of events already in the tree
+#' (so, for an empty tree: 0, 1, 2, 3, ...).
 #' @param save Boolean; whether or not to save the sequence in the tree
 #' (if \code{save = FALSE}, only the active nodes are updated).
-#' @param when Boolean; ignored if \code{save = FALSE}; provides locations
-#' for each element of \code{seq}. If \code{NULL} (default), locations
-#' are determined as a numeric sequence beginning at the last location
-#' entered into the tree, and increasing by 1 each time.
 #' @param reset_active_nodes By default, the tree's active nodes are reset
 #' before adding the new sequence (\code{reset_active_nodes = TRUE}).
 #' Otherwise the new sequence is treated as a continuation of the previous
@@ -30,19 +31,22 @@
 #' t <- new_tree()
 #' add_seq(t, sample(5, 5, replace = TRUE))
 #' plot(t)
-add_seq <- function(tree, seq, save = TRUE, when = NULL,
+add_seq <- function(tree,
+                    seq,
+                    save = TRUE,
+                    time = NULL,
                     reset_active_nodes = TRUE,
                     terminate = TRUE,
                     visual = FALSE) {
   # Inputs ####
-  stopifnot(is(tree, "tree"), is.atomic(seq), is.scalar.logical(save),
-            is.null.or(when, is.numeric), is.scalar.logical(reset_active_nodes),
+  stopifnot(is.tst(tree), is.atomic(seq), is.scalar.logical(save),
+            is.null.or(time, is.numeric), is.scalar.logical(reset_active_nodes),
             is.scalar.logical(terminate), is.scalar.logical(visual))
   if (save) {
-    if (is.null(when)) {
-      when <- seq(from = tree$when + 1L,
+    if (is.null(time)) {
+      time <- seq(from = tree$num_observed,
                   length.out = length(seq))
-    } else stopifnot(identical(length(when), length(seq)))
+    } else stopifnot(identical(length(time), length(seq)))
   }
 
   # Prep ####
@@ -56,14 +60,15 @@ add_seq <- function(tree, seq, save = TRUE, when = NULL,
     value <- as.character(seq[i])
     if (identical(value, tree$terminal))
       stop("sequence cannot contain terminal character: ", tree$terminal)
-    add_symbol(tree, value = value, save = save, when = when[i])
+    add_symbol(tree, value = value, save = save, time = time[i])
     if (visual) plot(tree, wait = i < length(seq), print = TRUE)
   }
 
   # Terminal ####
-  if (save && terminate) add_symbol(tree, value = tree$terminal,
+  if (save && terminate) add_symbol(tree,
+                                    value = tree$terminal,
                                     save = TRUE,
-                                    when = when[i],
+                                    time = time[i],
                                     terminal = TRUE)
   tree
 }

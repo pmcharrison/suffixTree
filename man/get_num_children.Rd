@@ -10,6 +10,9 @@ get_num_children(tree, order, exclude_terminals = FALSE)
 \item{tree}{A suffix tree as produced by \code{new_tree}.}
 
 \item{order}{Amount of context (e.g. 0 means no context).}
+
+\item{exclude_terminals}{(Logical scalar)
+Whether to exclude terminal symbols from this count.}
 }
 \value{
 The number of children of the active node with order as specified,

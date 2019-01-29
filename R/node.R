@@ -1,8 +1,10 @@
-new_node <- function(value, when, terminal = FALSE) {
+new_node <- function(value, pos, time, terminal = FALSE) {
   self <- new.env()
   self$value <- value
-  self$log_0 <- list(when) # without update exclusion
-  self$log_1 <- list(when) # with update exclusion
+  self$log_0 <- list(pos = list(pos), # without update exclusion
+                     time = list(time))
+  self$log_1 <- list(pos = list(pos),
+                     time = list(time)) # with update exclusion
   self$children <- new.env()
   class(self) <- c(if (terminal) "terminal",
                    "node")
